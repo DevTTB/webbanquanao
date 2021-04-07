@@ -4,6 +4,7 @@ import axios from 'axios'
 import './App.css';
 import Navigation from './components/navigation';
 import ProductCard from './components/product';
+import Footer from './components/organisms/footer';
 const ex = [
   {
     name: 'T-Shirt',
@@ -50,6 +51,7 @@ function App() {
   }, [])
   return (
     <div className="App">
+      <Navigation />
       {
         isLoading ? <div>Loading...</div> : <Container maxWidth='md'>
           <Grid container spacing={4}>
@@ -61,8 +63,7 @@ function App() {
           </Grid>
         </Container>
       }
-      <Navigation />
-
+      <Footer />
     </div>
   );
 }
