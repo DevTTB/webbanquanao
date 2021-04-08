@@ -5,6 +5,8 @@ import './App.css';
 import Navigation from './components/navigation';
 import ProductCard from './components/product';
 import Footer from './components/organisms/footer';
+import Header from './components/organisms/header';
+import CartPage from './components/pages/cart';
 const ex = [
   {
     name: 'T-Shirt',
@@ -51,10 +53,11 @@ function App() {
   }, [])
   return (
     <div className="App">
+      {/* <Header />
       <Navigation />
       {
         isLoading ? <div>Loading...</div> : <Container maxWidth='md'>
-          <Grid container spacing={4}>
+          <Grid container spacing={1}>
             {
               productList.map(item => item.id <= 10 && (
                 <ProductCard props={item} />
@@ -63,7 +66,8 @@ function App() {
           </Grid>
         </Container>
       }
-      <Footer />
+      <Footer /> */}
+      <CartPage />
     </div>
   );
 }
