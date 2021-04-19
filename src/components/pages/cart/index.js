@@ -1,10 +1,16 @@
-import { AppBar, Button, ButtonBase, Card, Grid, Input, InputBase, makeStyles, Paper, Typography } from '@material-ui/core';
+import { AppBar, Button, ButtonBase, Card, Grid, Input, InputBase, Link, makeStyles, Paper, Toolbar, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import BackspaceOutlinedIcon from '@material-ui/icons/BackspaceOutlined';
+import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { increaseItemQuantity, decreaseItemQuantity, removeItemToCart } from '../../../redux/slice/cart-slice';
+import { useHistory } from 'react-router';
 const useStyles = makeStyles((theme) => ({
     root: {
+        marginTop: '55px',
+        marginBottom: '90px',
         flexGrow: 1,
         padding: '4px 0'
     },
@@ -19,8 +25,8 @@ const useStyles = makeStyles((theme) => ({
     },
     paper: {
         padding: 'auto',
-        margin: 'auto',
-        maxWidth: 500,
+        margin: '5px 0',
+        minWidth: 350,
     },
     wrap: {
         width: '100% !important',
@@ -74,38 +80,74 @@ const useStyles = makeStyles((theme) => ({
 }))
 const CartPage = () => {
     const classes = useStyles()
+    const history = useHistory()
+    const dispatch = useDispatch()
+    const cartList = useSelector(state => state.cart)
+    const handleGoBack = () => {
+        history.push('/')
+    }
+    const handleRemoveItemCart = (id) => {
+        const item = {
+            id: id
+        }
+        const action = removeItemToCart(item)
+        dispatch(action)
+    }
+    const handleIncreaseItemCart = (id) => {
+        const item = {
+            id: id
+        }
+        const action = increaseItemQuantity(item)
+        dispatch(action)
+    }
+    const handleDecreaseItemCart = (id) => {
+        const item = {
+            id: id
+        }
+        const action = decreaseItemQuantity(item)
+        dispatch(action)
+    }
     return (
-        <div>
-            <div className={classes.root}>
-                <Paper className={classes.paper}>
-                    <Grid className={classes.wrap} container spacing={1} direction='row'>
-                        <Grid item xs={4}>
-                            <ButtonBase className={classes.image}>
-                                <img className={classes.img} src="https://canifa.s3.amazonaws.com/media/catalog/product/cache_generated/500x/8ts21s023-sk010-l-1-.jpg" />
-                            </ButtonBase>
-                        </Grid>
-                        <Grid className={classes.info} item xs={8} sm container>
-                            <Grid item xs container direction='column' spacing={1}>
-                                <Grid item xs>
-                                    <Typography gutterBottom variant='h6'>T-Shirt</Typography>
-                                    <Typography variant='body1'>500 000 đ</Typography>
-                                </Grid>
-                                <Grid className={classes.quantity} item xs container direction='row'>
-                                    <Grid item><ButtonBase className={classes.btn}><RemoveIcon className={classes.icon} /></ButtonBase></Grid>
-                                    <Grid item><input type='text' defaultValue='1' className={classes.inputText} /></Grid>
-                                    <Grid item><ButtonBase className={classes.btn}><AddIcon className={classes.icon} /></ButtonBase></Grid>
-                                </Grid>
-                            </Grid>
-                            <Grid item xs={2}>
-                                <Typography variant='subtitle1'><ButtonBase><BackspaceOutlinedIcon /></ButtonBase></Typography>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Paper>
+        <>
+            <div>
+                <AppBar>
+                    <Toolbar>
+                        <ButtonBase onClick={() => handleGoBack()}><ArrowBackIosRoundedIcon /></ButtonBase>
+                    </Toolbar>
+                </AppBar>
             </div>
-
-            <div style={{ height: '420px' }}></div>
-
+            <div className={classes.root}>
+                {
+                    cartList.length
+                        ? <div><Typography variant="h1">Empty Cart</Typography></div>
+                        : cartList.map(item =>
+                            <Paper className={classes.paper}>
+                                <Grid className={classes.wrap} container spacing={1} direction='row'>
+                                    <Grid item xs={4}>
+                                        <ButtonBase className={classes.image}>
+                                            <img className={classes.img} src={item.url} />
+                                        </ButtonBase>
+                                    </Grid>
+                                    <Grid className={classes.info} item xs={8} sm container>
+                                        <Grid item xs container direction='column' spacing={1}>
+                                            <Grid item xs>
+                                                <Typography gutterBottom variant='h6'>{item.name}</Typography>
+                                                <Typography variant='body1'>{item.price} đ</Typography>
+                                            </Grid>
+                                            <Grid className={classes.quantity} item xs container direction='row'>
+                                                <Grid item><ButtonBase className={classes.btn} onClick={() => handleDecreaseItemCart(item.id)}><RemoveIcon className={classes.icon} /></ButtonBase></Grid>
+                                                <Grid item><label>{item.quantity}</label> </Grid>
+                                                <Grid item><ButtonBase className={classes.btn} onClick={() => handleIncreaseItemCart(item.id)}><AddIcon className={classes.icon} /></ButtonBase></Grid>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid item xs={2}>
+                                            <Typography variant='subtitle1'><ButtonBase onClick={() => handleRemoveItemCart(item.id)}><BackspaceOutlinedIcon /></ButtonBase></Typography>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Paper>)
+                }
+            </div>
             <div className={classes.checkout}>
                 <Paper className={classes.bottom}>
                     <Grid className={classes.totalPrice} container direction='row'>
@@ -115,7 +157,7 @@ const CartPage = () => {
                     <Button className={classes.checkoutBtn} variant="contained" color="secondary">Secondary</Button>
                 </Paper>
             </div>
-        </div>
+        </>
     );
 };
 
