@@ -17,7 +17,7 @@ const cart = createSlice({
         },
         removeItemToCart: (state, action) => {
             const removeItemId = action.payload.id
-            return state.filter(item => item.id != removeItemId)
+            return state.filter(item => item.id !== removeItemId)
         },
         increaseItemQuantity: (state, action) => {
             const idItem = action.payload.id
@@ -32,10 +32,14 @@ const cart = createSlice({
             if (itemIndex >= 0) {
                 state[itemIndex].quantity -= 1
             }
+        },
+        paymentSuccess: (state, action) => {
+            console.log('slice:', action.payload)
+            state = action.payload
         }
 
     }
 })
 const { reducer, actions } = cart
-export const { addItemToCart, removeItemToCart, increaseItemQuantity, decreaseItemQuantity } = actions
+export const { addItemToCart, removeItemToCart, increaseItemQuantity, decreaseItemQuantity, paymentSuccess } = actions
 export default reducer
