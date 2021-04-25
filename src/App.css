@@ -1,10 +1,54 @@
-.App {
-  text-align: center;
+.content {
+  padding: 10px 0;
 }
 .block-hover {
   transition: all 0.3s;
+  text-align: center;
 }
 .block-hover:hover {
   transform: scale(1.03);
   cursor: pointer;
+}
+.slick-images {
+}
+.slick-items {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
+.slick-images-list {
+}
+.header-image {
+  height: 150px;
+  width: 100%;
+}
+.banner-image {
+  width: 100%;
+}
+.icon-subnav {
+  padding: 0 20px;
+}
+.view-image-list {
+  display: flex;
+  flex-flow: column;
+}
+.view-image {
+  display: flex;
+  flex-flow: row;
+  min-width: 30vw;
+  padding: 10px;
+}
+.info-cart {
+  padding: 10px;
+  margin-left: 50px;
+  margin-top: 50px;
+}
+.image-product-cart {
+  max-height: 100px !important;
+}
+.select-size {
+  max-width: fit-content !important;
+}
+.total-price {
+  max-width: 300px !important;
 }

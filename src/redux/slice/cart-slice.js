@@ -32,10 +32,14 @@ const cart = createSlice({
             if (itemIndex >= 0) {
                 state[itemIndex].quantity -= 1
             }
+        },
+        paymentSuccess: (state, action) => {
+            console.log('state', state)
+            state = []
         }
 
     }
 })
 const { reducer, actions } = cart
-export const { addItemToCart, removeItemToCart, increaseItemQuantity, decreaseItemQuantity } = actions
+export const { addItemToCart, removeItemToCart, increaseItemQuantity, decreaseItemQuantity, paymentSuccess } = actions
 export default reducer
