@@ -2,7 +2,10 @@ import { Badge, IconButton, makeStyles } from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import firebase from 'firebase'
+import { useAuth } from '../../../config/contexts/auth-context';
 const useStyle = makeStyles(() => ({
     root: {
         width: '100%',
@@ -54,6 +57,8 @@ const HeaderDesktop = ({ props }) => {
     const handleGoto = (page) => {
         history.push(`/${page}`)
     }
+    const currentUser = useAuth() || ''
+    const userName = currentUser.currentUser.displayName
     return (
         <div className={classes.root}>
             <div className={classes.header} id='header-top'>
@@ -61,7 +66,8 @@ const HeaderDesktop = ({ props }) => {
             </div>
             <div className={classes.nav}>
                 <div className={classes.subNavR}>
-                    <IconButton onClick={() => handleGoto('login')} color="inherit">
+                    {currentUser.name}
+                    <IconButton onClick={() => userName !== null ? handleGoto('login') : handleGoto('account')} color="inherit">
                         <AccountCircleIcon />
                     </IconButton>
                     <IconButton onClick={() => handleGoto('cart')} aria-label="show new notifications" color="inherit">
@@ -74,10 +80,10 @@ const HeaderDesktop = ({ props }) => {
                     <div className={classes.mid}></div>
                 </div>
                 <div className={classes.subNavL}>
-                    <div className={classes.iconSubNav}>Đồ thể thao</div>
-                    <div className={classes.iconSubNav}>Đồ công sở</div>
-                    <div className={classes.iconSubNav}>Đồ Dự tiệc</div>
-                    <div className={classes.iconSubNav}>Đồ đi biển</div>
+                    <Button variant='text' className={classes.iconSubNav}>Đồ thể thao</Button>
+                    <Button variant='text' className={classes.iconSubNav}>Đồ công sở</Button>
+                    <Button variant='text' className={classes.iconSubNav}>Đồ Dự tiệc</Button>
+                    <Button variant='text' className={classes.iconSubNav}>Đồ đi biển</Button>
                 </div>
             </div>
         </div>

@@ -1,31 +1,47 @@
+import { ButtonBase, Grid, makeStyles } from '@material-ui/core';
+import RemoveIcon from '@material-ui/icons/Remove';
+import AddIcon from '@material-ui/icons/Add';
 import React, { useState } from 'react';
-import { Button, Card, Container, Form, Table, Alert } from 'react-bootstrap';
+import { Alert, Button, Card, Container, Form, Table } from 'react-bootstrap';
+import PaypalExpressBtn from 'react-paypal-express-checkout';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { decreaseItemQuantity, increaseItemQuantity, removeItemToCart, paymentSuccess } from '../../../redux/slice/cart-slice';
+import { decreaseItemQuantity, increaseItemQuantity, paymentSuccess, removeItemToCart } from '../../../redux/slice/cart-slice';
 import SlickCarousel from '../../common/carousel/slick-carousel';
 import Header from '../../common/header';
 import subTotal from '../../common/total-price/subtotal';
-import PaypalExpressBtn from 'react-paypal-express-checkout'
-
+const useStyles = makeStyles((theme) => ({
+    btn: {
+        display: 'inline-block',
+        paddingTop: '2px',
+        background: 'rgb(242, 242, 242)',
+        position: 'relative',
+        width: '24px',
+        height: '24px',
+        border: 'none',
+        outline: 'none',
+        marginRight: '4px'
+    }
+}))
 const CartDesktop = () => {
+    const classes = useStyles()
     const cart = useSelector(state => state.cart)
     const [isPayment, setIsPayment] = useState(false)
     const [isPaymentSuccess, setIsPaymentSuccess] = useState('')
     const [isPaymentError, setIsPaymentError] = useState('')
     const cartList = useSelector(state => state.cart)
     const productList = useSelector(state => state.product)
-    const history = useHistory()
     const dispatch = useDispatch()
     const client = {
         sandbox: "ASF5du6Fvrn0Ub-Xl1mxe6eIYiyqlx5YOW9RgI-jtxNz0a5Bj-d5kvE3v12gr8mQPi9HuhFaZiuiKeW6"
     }
     const currency = 'USD'
-    const total = 2
+    const total = subTotal(cart) / 20000
 
-    const handleGoPayment = () => {
-        dispatch(paymentSuccess())
-        console.log(dispatch(paymentSuccess()))
+    const handleGoPayment = id => {
+        const item = {}
+        const action = paymentSuccess(item)
+        dispatch(action)
     }
     const handleRemoveItemCart = (id) => {
         const item = {
@@ -56,7 +72,6 @@ const CartDesktop = () => {
     const onError = err => {
         setIsPaymentError('Thanh Toán Thất Bại! Hãy Thử Lại')
     }
-    console.log('cart', subTotal(cart))
     return (
         <div className='w-100'>
             <Header />
@@ -89,8 +104,14 @@ const CartDesktop = () => {
                                         </div>
                                     </td>
                                     <td className=''>{item.price} đ</td>
-                                    <td className='text-center'>{item.quanity}</td>
-                                    <td className='text-center'>{item.price * item.quanity} đ</td>
+                                    <td className='text-center'>
+                                        <div className='d-flex'>
+                                            {item.quantity !== 1 && <Grid item><ButtonBase className={classes.btn} onClick={() => handleDecreaseItemCart(item.id)}><RemoveIcon className={classes.icon} /></ButtonBase></Grid>}
+                                            <Grid item><label className='p-1'>{item.quantity}</label> </Grid>
+                                            <Grid item><ButtonBase className={classes.btn} onClick={() => handleIncreaseItemCart(item.id)}><AddIcon className={classes.icon} /></ButtonBase></Grid>
+                                        </div>
+                                    </td>
+                                    <td className='text-center'>{item.price * item.quantity} đ</td>
                                 </tr>)
                             }
                         </tbody>
@@ -104,7 +125,7 @@ const CartDesktop = () => {
                                 <p>Thành tiền:</p>
                                 <h4>{subTotal(cart)} đ</h4>
                             </div>
-                            <Button onClick={() => handleGoPayment()} className='w-100 btn-dark text-center' type='button'>Thanh Toán</Button>
+                            <Button onClick={() => setIsPayment(true)} className='w-100 btn-dark text-center' type='button'>Thanh Toán</Button>
                         </Card.Body>
                         {
                             isPayment && <Card.Body>
@@ -122,7 +143,7 @@ const CartDesktop = () => {
                     </Card>
                 </Container>
             </Container>
-            <SlickCarousel props={productList.data} titleSlick='San pham lien quan' />
+            <SlickCarousel props={productList.data} titleSlick='Sản phẩm liên quan' />
         </div>
     );
 };

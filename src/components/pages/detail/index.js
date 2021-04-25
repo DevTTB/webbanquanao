@@ -45,7 +45,7 @@ const DetailPage = () => {
             name: product.name,
             price: Number(product.price),
             url: product.url,
-            quanity: 1,
+            quantity: 1,
             category: product.category,
             size: product.size || [],
             color: product.color || [],

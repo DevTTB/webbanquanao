@@ -11,6 +11,9 @@
 }
 .slick-images {
 }
+.sale-carousel {
+  overflow: hidden;
+}
 .slick-items {
   display: flex;
   flex-flow: column;
@@ -51,4 +54,15 @@
 }
 .total-price {
   max-width: 300px !important;
+}
+.btn-cart {
+  display: inline-block;
+  padding-top: 2px;
+  background: rgb(242, 242, 242);
+  position: relative;
+  width: 24px;
+  height: 24px;
+  border: none;
+  outline: none;
+  margin-right: 4px;
 }
