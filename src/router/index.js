@@ -15,6 +15,7 @@ import CheckoutPage from '../components/pages/checkout';
 import DetailPage from '../components/pages/detail';
 import HomePage from '../components/pages/home';
 import LoginPage from '../components/pages/login';
+import PaymentPage from '../components/pages/payment';
 import SignupPage from '../components/pages/signup';
 import { AuthProvider } from '../config/contexts/auth-context';
 import PrivateRoute from './private-route';
@@ -36,6 +37,7 @@ const Routers = () => {
                     <Route exact path='/account' component={AccountPage} />
                     <Route exact path='/forgot-password' component={ForgotPassword} />
                     <Route exact path='/update-profile' component={UpdateProfile} />
+                    <Route exact path='/payment' component={PaymentPage} />
                 </Switch>
             </AuthProvider>
         </BrowserRouter>

@@ -1,5 +1,7 @@
 import { Container, Grid } from '@material-ui/core';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { Row } from 'antd';
+import 'antd/dist/antd.css';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import "slick-carousel/slick/slick-theme.css";
@@ -39,13 +41,13 @@ const HomePage = () => {
                 {
                     isLoading ? <div>Loading...</div> : <Container maxWidth='lg'>
                         <h1> Sale off 50%</h1>
-                        <Grid container spacing={1}>
+                        <Row gutter={[8, 8]}>
                             {
                                 productList.data.map(item => item.id <= 8 && (
                                     <ProductCard props={item} />
                                 ))
                             }
-                        </Grid>
+                        </Row>
                     </Container>
                 }
                 <SlickCarousel props={productList.data} titleSlick='' />

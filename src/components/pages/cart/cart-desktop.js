@@ -64,11 +64,11 @@ const CartDesktop = () => {
         <div className='w-100'>
             <Header />
             <Container className='d-flex mw-100 mt-2'>
-                <Container className='p-2 p-4 w-100'>
+                <Container className='p-2 p-4 w-100 table-cart'>
                     <div>
                         <h4>Tóm tắt mặt hàng ({cart.length})</h4>
                     </div>
-                    <Table>
+                    <Table className=''>
                         <thead>
                             <tr>
                                 <th className=''>Sản phẩm</th>
@@ -79,7 +79,7 @@ const CartDesktop = () => {
                         </thead>
                         <tbody>
                             {
-                                cart.map(item => <tr>
+                                cart.map(item => <tr className='cart-items'>
                                     <td className='d-flex'>
                                         <img className='image-product-cart' src={item.url} />
                                         <div className='ml-2 d-flex flex-column'>
@@ -105,7 +105,7 @@ const CartDesktop = () => {
                         </tbody>
                     </Table>
                 </Container>
-                <Container className='p-2 flex-shrink-1 total-price'>
+                <Container className='flex-shrink-1 total-price'>
                     <Card>
                         <Card.Body>
                             <h4>Tóm Tắt Đơn Hàng</h4>
