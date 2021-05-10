@@ -94,8 +94,8 @@ const CartDesktop = () => {
                                     <td className=''>{item.price} đ</td>
                                     <td className='text-center'>
                                         <div className='d-flex'>
-                                            {item.quantity !== 1 && <Grid item><ButtonBase className='btn-cart' onClick={() => handleDecreaseItemCart(item.id)}><RemoveIcon /></ButtonBase></Grid>}
-                                            <Grid item><label className='p-1'>{item.quantity}</label> </Grid>
+                                            <Grid item><ButtonBase disabled={ item.quantity > 1 ? false : true} className='btn-cart' onClick={() => handleDecreaseItemCart(item.id)}><RemoveIcon /></ButtonBase></Grid>
+                                            <Grid item><label className='p-1 lable-quantity'>{item.quantity}</label> </Grid>
                                             <Grid item><ButtonBase className='btn-cart' onClick={() => handleIncreaseItemCart(item.id)}><AddIcon /></ButtonBase></Grid>
                                         </div>
                                     </td>

@@ -51,7 +51,8 @@
     "build": "react-scripts build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "eject": "react-scripts eject",
-    "watch": "node-sass --watch src/assets/scss/ --output src/assets/css/"
+    "watch:scss": "node-sass src/assets/scss/main.scss -w src/assets/css/all.css",
+    "build:scss": "node-sass src/assets/scss/main.scss src/assets/css/all.css"
   },
   "eslintConfig": {
     "extends": [

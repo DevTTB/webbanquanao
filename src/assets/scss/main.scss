@@ -1,9 +1,14 @@
+@import '../../components/common/flip-clock/flip-clock.scss';
+@import '../../components/common/carousel/slick.scss';
+@import '../../components/pages/cart/cart.scss';
+@import './other.scss';
+
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-    "Droid Sans", "Helvetica Neue", sans-serif;
+  "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

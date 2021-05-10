@@ -1,0 +1,32 @@
+.content {
+  padding: 10px 0;
+}
+.block-hover {
+  transition: all 0.3s;
+  text-align: center;
+}
+.block-hover:hover {
+  transform: scale(1.01);
+  cursor: pointer;
+}
+
+.header-image {
+  height: 150px;
+  width: 100%;
+}
+.banner-image {
+  width: 100%;
+}
+.icon-subnav {
+  padding: 0 20px;
+}
+.view-image-list {
+  display: flex;
+  flex-flow: column;
+}
+.view-image {
+  display: flex;
+  flex-flow: row;
+  min-width: 30vw;
+  padding: 10px;
+}
