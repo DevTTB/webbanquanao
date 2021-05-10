@@ -10,26 +10,12 @@ import { decreaseItemQuantity, increaseItemQuantity, paymentSuccess, removeItemT
 import SlickCarousel from '../../common/carousel/slick-carousel';
 import Header from '../../common/header';
 import subTotal from '../../common/total-price/subtotal';
-const useStyles = makeStyles((theme) => ({
-    btn: {
-        display: 'inline-block',
-        paddingTop: '2px',
-        background: 'rgb(242, 242, 242)',
-        position: 'relative',
-        width: '24px',
-        height: '24px',
-        border: 'none',
-        outline: 'none',
-        marginRight: '4px'
-    }
-}))
+
 const CartDesktop = () => {
-    const classes = useStyles()
-    const cart = useSelector(state => state.cart)
+    let cart = useSelector(state => state.cart)
     const [isPayment, setIsPayment] = useState(false)
     const [isPaymentSuccess, setIsPaymentSuccess] = useState('')
     const [isPaymentError, setIsPaymentError] = useState('')
-    const cartList = useSelector(state => state.cart)
     const productList = useSelector(state => state.product)
     const dispatch = useDispatch()
     const client = {
@@ -42,6 +28,7 @@ const CartDesktop = () => {
         const item = {}
         const action = paymentSuccess(item)
         dispatch(action)
+        cart = []
     }
     const handleRemoveItemCart = (id) => {
         const item = {
@@ -68,6 +55,7 @@ const CartDesktop = () => {
     const onSuccess = payment => {
         setIsPaymentSuccess('Thanh Toán Thành Công!')
         dispatch(paymentSuccess())
+        cart = []
     }
     const onError = err => {
         setIsPaymentError('Thanh Toán Thất Bại! Hãy Thử Lại')
@@ -76,11 +64,11 @@ const CartDesktop = () => {
         <div className='w-100'>
             <Header />
             <Container className='d-flex mw-100 mt-2'>
-                <Container className='p-2 p-4 w-100'>
+                <Container className='p-2 p-4 w-100 table-cart'>
                     <div>
-                        <h4>Tóm tắt mặt hàng ({cartList.length})</h4>
+                        <h4>Tóm tắt mặt hàng ({cart.length})</h4>
                     </div>
-                    <Table>
+                    <Table className=''>
                         <thead>
                             <tr>
                                 <th className=''>Sản phẩm</th>
@@ -91,7 +79,7 @@ const CartDesktop = () => {
                         </thead>
                         <tbody>
                             {
-                                cart.map(item => <tr>
+                                cart.map(item => <tr className='cart-items'>
                                     <td className='d-flex'>
                                         <img className='image-product-cart' src={item.url} />
                                         <div className='ml-2 d-flex flex-column'>
@@ -106,9 +94,9 @@ const CartDesktop = () => {
                                     <td className=''>{item.price} đ</td>
                                     <td className='text-center'>
                                         <div className='d-flex'>
-                                            {item.quantity !== 1 && <Grid item><ButtonBase className={classes.btn} onClick={() => handleDecreaseItemCart(item.id)}><RemoveIcon className={classes.icon} /></ButtonBase></Grid>}
+                                            {item.quantity !== 1 && <Grid item><ButtonBase className='btn-cart' onClick={() => handleDecreaseItemCart(item.id)}><RemoveIcon /></ButtonBase></Grid>}
                                             <Grid item><label className='p-1'>{item.quantity}</label> </Grid>
-                                            <Grid item><ButtonBase className={classes.btn} onClick={() => handleIncreaseItemCart(item.id)}><AddIcon className={classes.icon} /></ButtonBase></Grid>
+                                            <Grid item><ButtonBase className='btn-cart' onClick={() => handleIncreaseItemCart(item.id)}><AddIcon /></ButtonBase></Grid>
                                         </div>
                                     </td>
                                     <td className='text-center'>{item.price * item.quantity} đ</td>
@@ -117,7 +105,7 @@ const CartDesktop = () => {
                         </tbody>
                     </Table>
                 </Container>
-                <Container className='p-2 flex-shrink-1 total-price'>
+                <Container className='flex-shrink-1 total-price'>
                     <Card>
                         <Card.Body>
                             <h4>Tóm Tắt Đơn Hàng</h4>

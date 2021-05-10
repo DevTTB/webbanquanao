@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
-import { Button } from 'react-bootstrap';
-import PayPal from './paypal';
+import FlipClock from '../../common/flip-clock';
 
 const PaymentPage = () => {
-    const [checkout, setCheckOut] = useState()
     return (
         <div>
-            {
-                checkout ? (<PayPal />) : <Button onClick={() => setCheckOut(true)}>Check Out</Button>
-            }
+            <FlipClock />
         </div>
     );
 };

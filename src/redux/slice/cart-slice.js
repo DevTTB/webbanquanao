@@ -35,7 +35,7 @@ const cart = createSlice({
         },
         paymentSuccess: (state, action) => {
             console.log('slice:', action.payload)
-            state = action.payload
+            return state.filter(item => item.id === 999)
         }
 
     }

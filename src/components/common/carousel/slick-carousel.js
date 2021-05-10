@@ -41,14 +41,14 @@ const settingSlickre = {
 function PreArrow(props) {
     const { className, onClick } = props
     return (
-        <svg className={className} style={{ height: 26, filter: 'invert(1)', fill: '#fff', transform: 'rotate(180deg)', marginTop: '-10px' }} onClick={onClick} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" /></svg>
+        <svg className={className} style={{ height: 26, filter: 'invert(1)', fill: '#000', transform: 'rotate(180deg)', marginTop: '-10px' }} onClick={onClick} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" /></svg>
     )
 }
 
 function NextArrow(props) {
     const { className, onClick } = props
     return (
-        <svg className={className} style={{ height: 26, filter: 'invert(1)', fill: '#fff', color: '#000' }} onClick={onClick} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" /></svg>
+        <svg className={className} style={{ height: 26, filter: 'invert(1)', fill: '#000' }} onClick={onClick} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" /></svg>
     )
 }
 const SlickCarousel = ({ props, titleSlick }) => {

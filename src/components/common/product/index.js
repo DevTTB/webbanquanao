@@ -1,31 +1,22 @@
-import { Card, CardContent, CardMedia, Typography, Grid, makeStyles } from '@material-ui/core';
 import React from 'react';
 import { useHistory } from 'react-router';
-const useStyles = makeStyles(() => ({
-    root: {
-    }
-}))
+import { Card, Col } from 'antd'
+
+const { Meta } = Card
 const ProductCard = ({ props }) => {
     const history = useHistory()
     const handleGoDetail = (id) => {
         history.push(`/detail-page/${id}`)
     }
-    const classes = useStyles()
     return (
-        <Grid className='block-hover' onClick={() => handleGoDetail(props.id)} item key={props} xs={6} sm={3} md={3}>
-            <Card>
-                <CardMedia
-                    component='img'
-                    image={props.url}
-                />
-                <CardContent>
-                    <Typography variant="body1">
-                        {props.name}
-                    </Typography>
-                    <span>{props.price}đ</span>
-                </CardContent>
+        <Col md={6} xs={12} sm={8}>
+            <Card className=''
+                hoverable
+                onClick={() => handleGoDetail(props.id)}
+                cover={<img alt="example" src={props.url} />} >
+                <Meta title={props.name} />
             </Card>
-        </Grid>
+        </Col>
     );
 };
 
