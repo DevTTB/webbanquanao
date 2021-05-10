@@ -74,7 +74,7 @@ const CartDesktop = () => {
                                 <th className=''>Sản phẩm</th>
                                 <th className=''>Giá</th>
                                 <th className=''>Số lượng</th>
-                                <th className=''>Tổng cộng</th>
+                                <th className='text-center'>Tổng cộng</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -83,7 +83,7 @@ const CartDesktop = () => {
                                     <td className='d-flex'>
                                         <img className='image-product-cart' src={item.url} />
                                         <div className='ml-2 d-flex flex-column'>
-                                            <p>{item.name}</p>
+                                            <p className='white-space'>{item.name}</p>
                                             <Form.Control className='select-size' as="select" size="sm" custom>
                                                 <option >{item.size}</option>
                                                 {/* {item.size.map(size => <option>{size}</option>)} */}
@@ -91,15 +91,21 @@ const CartDesktop = () => {
                                             <Button onClick={() => handleRemoveItemCart(item.id)} variant='text' className='text-left'>Xóa</Button>
                                         </div>
                                     </td>
-                                    <td className=''>{item.price} đ</td>
+                                    <td className='price'>{item.price} đ</td>
                                     <td className='text-center'>
                                         <div className='d-flex'>
-                                            <Grid item><ButtonBase disabled={ item.quantity > 1 ? false : true} className='btn-cart' onClick={() => handleDecreaseItemCart(item.id)}><RemoveIcon /></ButtonBase></Grid>
+                                            <Grid item>
+                                                <ButtonBase
+                                                    disabled={ item.quantity > 1 ? false : true}
+                                                    className='btn-cart'
+                                                    onClick={() => handleDecreaseItemCart(item.id)}>
+                                                <RemoveIcon />
+                                                </ButtonBase></Grid>
                                             <Grid item><label className='p-1 lable-quantity'>{item.quantity}</label> </Grid>
                                             <Grid item><ButtonBase className='btn-cart' onClick={() => handleIncreaseItemCart(item.id)}><AddIcon /></ButtonBase></Grid>
                                         </div>
                                     </td>
-                                    <td className='text-center'>{item.price * item.quantity} đ</td>
+                                    <td className='text-center price'>{item.price * item.quantity} đ</td>
                                 </tr>)
                             }
                         </tbody>

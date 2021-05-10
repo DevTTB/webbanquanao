@@ -33,12 +33,12 @@ const useStyles = makeStyles((theme) => ({
 const DetailPage = () => {
     const id = useParams().id
     const [isAddItem, setIsAddItem] = useState(true)
+    const [url, setUrl] = useState()
     const dispatch = useDispatch()
     const classes = useStyles()
     const products = useSelector(state => state.product.data)
 
     const currentProduct = products.find(item => item.id == id && item)
-
     const handleAddToCart = (product) => {
         const data = {
             id: product.id,
@@ -55,6 +55,7 @@ const DetailPage = () => {
         dispatch(addItemToCart(data))
         setIsAddItem(false)
     }
+
 
     return (
         <>
@@ -78,12 +79,12 @@ const DetailPage = () => {
             <Container container className={classes.sectionDesktop} maxWidth='lg' >
                 <Paper className='view-image'>
                     <Grid >
-                        <img className='slick-images' src={currentProduct.url} />
+                        <img className='slick-images' src={url || currentProduct.url} />
                     </Grid>
                     <Grid className='view-image-list'>
-                        <div><img style={{ height: '100px', width: '70px', margin: '10px', cursor: 'pointer' }} src='https://img.ltwebstatic.com/images3_pi/2021/04/15/1618469566027838ada4cb290a26fa77517fef1804_thumbnail_600x.webp' /></div>
-                        <div><img style={{ height: '100px', width: '70px', margin: '10px', cursor: 'pointer' }} src='https://img.ltwebstatic.com/images3_pi/2021/04/15/16184695809da53f8d6e726ae09e08fd378841dea5_thumbnail_600x.webp' /></div>
-                        <div><img style={{ height: '100px', width: '70px', margin: '10px', cursor: 'pointer' }} src='https://img.ltwebstatic.com/images3_pi/2021/04/15/1618469599df2d953b2634bad48fb82f888c218253_thumbnail_600x.webp' /></div>
+                        <div onMouseEnter={() => setUrl('https://img.ltwebstatic.com/images3_pi/2021/04/15/1618469566027838ada4cb290a26fa77517fef1804_thumbnail_600x.webp')}><img  style={{ height: '100px', width: '70px', margin: '10px', cursor: 'pointer' }} src='https://img.ltwebstatic.com/images3_pi/2021/04/15/1618469566027838ada4cb290a26fa77517fef1804_thumbnail_600x.webp' /></div>
+                        <div onMouseEnter={() => setUrl('https://img.ltwebstatic.com/images3_pi/2021/04/15/16184695809da53f8d6e726ae09e08fd378841dea5_thumbnail_600x.webp')}><img style={{ height: '100px', width: '70px', margin: '10px', cursor: 'pointer' }} src='https://img.ltwebstatic.com/images3_pi/2021/04/15/16184695809da53f8d6e726ae09e08fd378841dea5_thumbnail_600x.webp' /></div>
+                        <div onMouseEnter={() => setUrl('https://img.ltwebstatic.com/images3_pi/2021/04/15/1618469599df2d953b2634bad48fb82f888c218253_thumbnail_600x.webp')}><img style={{ height: '100px', width: '70px', margin: '10px', cursor: 'pointer' }} src='https://img.ltwebstatic.com/images3_pi/2021/04/15/1618469599df2d953b2634bad48fb82f888c218253_thumbnail_600x.webp' /></div>
                     </Grid>
                 </Paper>
                 <Grid className='info-cart'>

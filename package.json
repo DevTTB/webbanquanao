@@ -51,8 +51,7 @@
     "build": "react-scripts build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "eject": "react-scripts eject",
-    "watch:scss": "node-sass src/assets/scss/main.scss -w src/assets/css/all.css",
-    "build:scss": "node-sass src/assets/scss/main.scss src/assets/css/all.css"
+    "watch:scss": "node-sass -w src/assets/scss/main.scss src/assets/css/all.css --output-style compressed"
   },
   "eslintConfig": {
     "extends": [
