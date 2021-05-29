@@ -1,4 +1,3 @@
-import { Home } from '@material-ui/icons';
 import React from 'react';
 import {
     Switch,
@@ -19,13 +18,14 @@ import PaymentPage from '../components/pages/payment';
 import SignupPage from '../components/pages/signup';
 import { AuthProvider } from '../config/contexts/auth-context';
 import PrivateRoute from './private-route';
+import SearchPage from "../components/pages/search";
 
 const Routers = () => {
     return (
         <BrowserRouter>
             <AuthProvider>
                 <Switch>
-                    <PrivateRoute exact path='/' component={HomePage} />
+                    {/*<PrivateRoute exact path='/' component={HomePage} />*/}
                     <Route exact path='/' component={HomePage} />
                     <Route exact path='/cart' component={CartPage} />
                     <Route exact path='/detail-page/:id' component={DetailPage} />
@@ -38,6 +38,7 @@ const Routers = () => {
                     <Route exact path='/forgot-password' component={ForgotPassword} />
                     <Route exact path='/update-profile' component={UpdateProfile} />
                     <Route exact path='/payment' component={PaymentPage} />
+                    <Route exact path='/search' component={SearchPage} />
                 </Switch>
             </AuthProvider>
         </BrowserRouter>

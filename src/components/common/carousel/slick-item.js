@@ -10,8 +10,8 @@ const SlickItemProduct = ({ props }) => {
     return (
         <Card className='slick-items'
             hoverable
-            cover={<img src={props.url} />}
-            onClick={() => handleClick(props.id)} >
+            cover={<img src={props.url[0]} />}
+            onClick={() => handleClick(props._id)} >
             <Meta title={props.name} />
         </Card >
     );

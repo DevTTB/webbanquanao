@@ -6,13 +6,13 @@ import LogIn from './login';
 const LoginPage = () => {
 
     return (
-        <AuthProvider>
+        // <AuthProvider>
             <Container className='d-flex align-items-center justify-content-center' style={{ minHeight: '100vh' }}>
                 <div className='w-100' style={{ maxWidth: '400px' }}>
                     <LogIn />
                 </div>
             </Container>
-        </AuthProvider>
+        // </AuthProvider>
     );
 }
 

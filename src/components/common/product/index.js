@@ -12,8 +12,8 @@ const ProductCard = ({ props }) => {
         <Col md={6} xs={12} sm={8}>
             <Card className=''
                 hoverable
-                onClick={() => handleGoDetail(props.id)}
-                cover={<img alt="example" src={props.url} />} >
+                onClick={() => handleGoDetail(props._id)}
+                cover={<img alt="example" src={props.url[0]} />} >
                 <Meta title={props.name} />
             </Card>
         </Col>

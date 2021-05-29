@@ -29,7 +29,7 @@ const getFireBaseToken = async () => {
 }
 
 const axiosClient = axios.create({
-    baseURL: process.env.REACT_APP_URL_API || 'https://6055490ad4d9dc001726e8ec.mockapi.io',
+    baseURL: process.env.REACT_APP_URL_API || 'http://localhost:4000',
     headers: {
         'content-type': 'application/json',
     },
