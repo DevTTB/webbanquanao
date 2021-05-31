@@ -8,6 +8,10 @@ const productApi = {
     get: (id) => {
         const url = `/products/${id}`
         return axiosClient.get(url)
+    },
+    post: () => {
+        const url = `/products/`
+        return axiosClient.port(url)
     }
 }
 export default productApi

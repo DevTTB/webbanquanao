@@ -5,7 +5,7 @@ import {
     BrowserRouter
 } from "react-router-dom";
 import AccountPage from '../components/pages/account';
-import AdminPage from '../components/pages/account/admin';
+import AdminPage from '../components/pages/account/admin/admin';
 import ForgotPassword from '../components/pages/account/reset-password';
 import UpdateProfile from '../components/pages/account/update-profile';
 import UserPage from '../components/pages/account/user';

@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import { Alert, Button, Card, Form } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../../../config/contexts/auth-context';
-import {signinUser} from "../../../redux/slice/userSignin-slice";
+import {loginUser} from "../../../redux/slice/userLogin-slice";
 import {unwrapResult} from "@reduxjs/toolkit";
 import {useDispatch, useSelector} from "react-redux";
 
@@ -14,7 +14,7 @@ const LogIn = () => {
     const [loading, setLoading] = useState(false)
     const history = useHistory()
     const dispatch = useDispatch()
-    const {userInfo} = useSelector(state => state.userSignin)
+    const {userInfo} = useSelector(state => state.userLogin)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -30,30 +30,30 @@ const LogIn = () => {
         setLoading(false)
     }
 
-    const signIn = async (data) => {
-        const actionResult = await dispatch(signinUser(data))
+    const logIn = async (data) => {
+        const actionResult = await dispatch(loginUser(data))
         const dataUser = unwrapResult(actionResult)
         console.log(dataUser)
     }
 
-    const handleSubmitSignin = async (e) => {
+    const handleSubmitLogin = async (e) => {
         e.preventDefault()
         try {
             const data = {
                 email: emailRef.current.value,
                 password: passwordRef.current.value
             }
-            signIn(data)
+            logIn(data)
         } catch (err) {
             console.log('Email không chính xác!', err)
         }
     }
 
-    useEffect(() => {
-        if(userInfo) {
-            history.push('/')
-        } else console.log('failed')
-    }, [userInfo])
+    // useEffect(() => {
+    //     if(userInfo) {
+    //         history.push('/')
+    //     } else console.log('failed')
+    // }, [userInfo])
 
     return (
         <>
@@ -61,7 +61,7 @@ const LogIn = () => {
                 <Card.Body>
                     <h2 className='text-center mb-4'>Đăng nhập</h2>
                     {error && <Alert variant='danger'>{error}</Alert>}
-                    <Form onSubmit={handleSubmitSignin}>
+                    <Form onSubmit={handleSubmitLogin}>
                         <Form.Group id='email'>
                             <Form.Label>Email</Form.Label>
                             <Form.Control type='email' ref={emailRef} required />

@@ -58,7 +58,7 @@ const HeaderDesktop = ({ props }) => {
     const handleGoto = (page) => {
         history.push(`/${page}`)
     }
-    const currentUser = useSelector(state => state.userSignin).userInfo
+    const currentUser = useSelector(state => state.userLogin).userInfo
 
     return (
         <div className={classes.root}>
@@ -67,8 +67,8 @@ const HeaderDesktop = ({ props }) => {
             </div>
             <div className={classes.nav}>
                 <div className={classes.subNavR}>
-                    {currentUser && currentUser.name}
-                    <IconButton onClick={() => !currentUser ? handleGoto('login') : handleGoto('account')} color="inherit">
+                    {currentUser.name ? currentUser.name : 'Đăng nhập/Đăng ký'}
+                    <IconButton onClick={() => currentUser.name ? handleGoto('account') : handleGoto('login')} color="inherit">
                         <AccountCircleIcon />
                     </IconButton>
                     <IconButton onClick={() => handleGoto('cart')} aria-label="show new notifications" color="inherit">

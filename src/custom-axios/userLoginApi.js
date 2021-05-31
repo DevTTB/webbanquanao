@@ -1,9 +1,9 @@
 import axiosClient from "./axiosClient"
 
-const userSigninApi = {
+const userLoginApi = {
     post: (email, password) => {
-        const url = '/users/signin'
+        const url = '/users/login'
         return axiosClient.post(url, {email, password})
     }
 }
-export default userSigninApi
+export default userLoginApi
