@@ -1,12 +1,14 @@
 import { Button, Container, FormControl, Grid, InputLabel, makeStyles, MenuItem, Paper, Select, Typography } from '@material-ui/core';
 import AddShoppingCartRoundedIcon from '@material-ui/icons/AddShoppingCartRounded';
-import React, { useState } from 'react';
+import {Modal} from "antd";
+import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { addItemToCart } from '../../../redux/slice/cart-slice';
 import SlickCarousel from '../../common/carousel/slick-carousel';
 import Footer from '../../common/footer/index';
 import Header from '../../common/header/index';
+import {useHistory} from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
     button: {
         backgroundColor: '#00ACC1',
@@ -33,28 +35,44 @@ const useStyles = makeStyles((theme) => ({
 const DetailPage = () => {
     const id = useParams().id
     const [isAddItem, setIsAddItem] = useState(true)
+    const [url, setUrl] = useState()
+    const [size, setSize] = useState()
+    const [color, setColor] = useState()
+
     const dispatch = useDispatch()
+    const history = useHistory()
     const classes = useStyles()
     const products = useSelector(state => state.product.data)
 
-    const currentProduct = products.find(item => item.id == id && item)
+    const currentProduct = products.find(item => item._id == id && item)
+
+    useEffect(() => {
+        setUrl(currentProduct.url[0])
+    },[currentProduct.url])
 
     const handleAddToCart = (product) => {
         const data = {
-            id: product.id,
+            productId: product._id,
             name: product.name,
             price: Number(product.price),
-            url: product.url,
+            url: product.url[0],
             quantity: 1,
             category: product.category,
-            size: product.size || [],
-            color: product.color || [],
-            decscription: product.decscription,
-            brand: product.brand,
+            size: size || 'S',
+            color: color || 'black',
+            sale: product.sale || 0,
         }
         dispatch(addItemToCart(data))
         setIsAddItem(false)
+        Modal.success({
+            content: 'Đã thêm sản phẩm vào giỏ hàng!',
+        });
     }
+
+    const handleGoTo = address => {
+        history.push(`/${address}`)
+    }
+
 
     return (
         <>
@@ -78,12 +96,16 @@ const DetailPage = () => {
             <Container container className={classes.sectionDesktop} maxWidth='lg' >
                 <Paper className='view-image'>
                     <Grid >
-                        <img className='slick-images' src={currentProduct.url} />
+                        <img className='slick-images' src={url || currentProduct.url[0]} />
                     </Grid>
                     <Grid className='view-image-list'>
-                        <div><img style={{ height: '100px', width: '70px', margin: '10px', cursor: 'pointer' }} src='https://img.ltwebstatic.com/images3_pi/2021/04/15/1618469566027838ada4cb290a26fa77517fef1804_thumbnail_600x.webp' /></div>
-                        <div><img style={{ height: '100px', width: '70px', margin: '10px', cursor: 'pointer' }} src='https://img.ltwebstatic.com/images3_pi/2021/04/15/16184695809da53f8d6e726ae09e08fd378841dea5_thumbnail_600x.webp' /></div>
-                        <div><img style={{ height: '100px', width: '70px', margin: '10px', cursor: 'pointer' }} src='https://img.ltwebstatic.com/images3_pi/2021/04/15/1618469599df2d953b2634bad48fb82f888c218253_thumbnail_600x.webp' /></div>
+                        {
+                            currentProduct.url.map(item =>
+                                <div onMouseEnter={() => setUrl(item)}>
+                                    <img  style={{ height: '100px', width: '70px', margin: '10px', cursor: 'pointer' }}
+                                          src={item} />
+                                </div>)
+                        }
                     </Grid>
                 </Paper>
                 <Grid className='info-cart'>
@@ -94,36 +116,51 @@ const DetailPage = () => {
                         <FormControl variant="outlined" className={classes.formControl}>
                             <InputLabel id="demo-simple-select-outlined-label">Size:</InputLabel>
                             <Select
+                                onChange={(e) => setSize(e.target.value)}
                                 labelId="demo-simple-select-outlined-label"
                                 id="demo-simple-select-outlined"
-                                label="Age"
-                            >
-                                <MenuItem value={0}>S</MenuItem>
-                                <MenuItem value={10}>M</MenuItem>
-                                <MenuItem value={20}>L</MenuItem>
-                                <MenuItem value={30}>XL</MenuItem>
+                                label="Age" >
+                                {
+                                    currentProduct.size.map(item => <MenuItem value={item}>{item}</MenuItem>)
+                                }
                             </Select>
                         </FormControl>
                         <br />
+                        <FormControl variant="outlined" className={classes.formControl}>
+                            <InputLabel id="demo-simple-select-outlined-label">Color:</InputLabel>
+                            <Select
+                                onChange={(e) => setColor(e.target.value)}
+                                labelId="demo-simple-select-outlined-label"
+                                id="demo-simple-select-outlined"
+                                label="Age" >
+                                {
+                                    currentProduct.color.map(item => <MenuItem value={item}>{item}</MenuItem>)
+                                }
+                            </Select>
+                        </FormControl>
                         <br />
                         <Typography variant='h5'>{currentProduct.price} đ</Typography>
                         <br />
                     </Grid>
                     <Grid>
                         {
-                            isAddItem ? <Button
-                                variant="contained"
-                                className={classes.button}
-                                startIcon={<AddShoppingCartRoundedIcon />}
-                                onClick={() => handleAddToCart(currentProduct)}>THÊM VÀO GIỎ HÀNG</Button>
+                            isAddItem
+                                ? <Button
+                                    variant="contained"
+                                    className={classes.button}
+                                    startIcon={<AddShoppingCartRoundedIcon />}
+                                    onClick={() => handleAddToCart(currentProduct)}>THÊM VÀO GIỎ HÀNG</Button>
                                 : <Button
                                     variant="contained"
                                     className={classes.button}
+                                    onClick={() => handleGoTo('cart')}
                                     startIcon={<AddShoppingCartRoundedIcon />}>ĐÃ THÊM VÀO GIỎ HÀNG</Button>
                         }
                     </Grid>
                 </Grid>
             </Container>
+            <div className="fb-comments" data-href="http://localhost:3000/detail-page/60b1b3090bf08506b9815aca" data-width=""
+                 data-numposts="50"></div>
             <SlickCarousel props={products} titleSlick='Sản phẩm liên quan' />
             <Footer />
         </>

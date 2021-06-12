@@ -19,11 +19,11 @@
     "cloudinary": "^1.25.1",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.1",
     "firebase": "^8.4.1",
     "googleapis": "^73.0.0",
+    "js-cookie": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.4",
     "node-fetch": "^2.6.1",
@@ -51,7 +51,7 @@
     "build": "react-scripts build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "eject": "react-scripts eject",
-    "watch": "node-sass --watch src/assets/scss/ --output src/assets/css/"
+    "watch:scss": "node-sass -w src/assets/scss/main.scss src/assets/css/all.css --output-style compressed"
   },
   "eslintConfig": {
     "extends": [

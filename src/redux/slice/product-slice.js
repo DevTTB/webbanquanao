@@ -7,7 +7,7 @@ export const setProduct = createAsyncThunk('product', async (params, thunkAPI) =
 })
 
 const product = createSlice({
-    name: 'photo',
+    name: 'product',
     initialState: {
         data: [],
         loading: false,
@@ -19,9 +19,7 @@ const product = createSlice({
         }
     },
     extraReducers: {
-        [setProduct.pending]: (state) => {
-            state.loading = true
-        },
+        [setProduct.pending]: (state) => state.loading = true,
         [setProduct.rejected]: (state, action) => {
             state.loading = false
             state.error = action.error
@@ -31,8 +29,80 @@ const product = createSlice({
             state.data = action.payload
         }
     }
-
 })
-const { reducer, actions } = product
+
+const productCreate = createSlice({
+    name: 'product',
+    initialState: {
+        data: [],
+        loading: false,
+        error: ''
+    },
+    reducers: {},
+    extraReducers: {
+        [setProduct.pending]: (state) => state.loading = true,
+        [setProduct.rejected]: (state, action) => {
+            state.loading = false
+            state.error = action.error
+        },
+        [setProduct.fulfilled]: (state, action) => {
+            state.loading = false
+            state.data = action.payload
+        }
+    }
+})
+
+const productUpdate = createSlice({
+    name: 'product',
+    initialState: {
+        data: [],
+        loading: false,
+        error: ''
+    },
+    reducers: {},
+    extraReducers: {
+        [setProduct.pending]: (state) => state.loading = true,
+        [setProduct.rejected]: (state, action) => {
+            state.loading = false
+            state.error = action.error
+        },
+        [setProduct.fulfilled]: (state, action) => {
+            state.loading = false
+            state.data = action.payload
+        }
+    }
+})
+
+const productDelete = createSlice({
+    name: 'product',
+    initialState: {
+        data: [],
+        loading: false,
+        error: ''
+    },
+    reducers: {},
+    extraReducers: {
+        [setProduct.pending]: (state) => state.loading = true,
+        [setProduct.rejected]: (state, action) => {
+            state.loading = false
+            state.error = action.error
+        },
+        [setProduct.fulfilled]: (state, action) => {
+            state.loading = false
+            state.data = action.payload
+        }
+    }
+})
+
+const { reducer: productReducer, actions } = product
+const { reducer: productCreateReducer, actionsCreate } = productCreate
+const { reducer: productUpdateReducer, actionsUpdate } = productUpdate
+const { reducer: productDeleteReducer, actionsDelete } = productDelete
+
 export const { addItemToProduct } = actions
-export default reducer
+
+export {
+    productReducer,
+    productUpdateReducer,
+    productCreateReducer
+}

@@ -1,0 +1,63 @@
+.content {
+  padding: 10px 0;
+}
+.block-hover {
+  transition: all 0.3s;
+  text-align: center;
+}
+.block-hover:hover {
+  transform: scale(1.01);
+  cursor: pointer;
+}
+
+.header-image {
+  height: 150px;
+  width: 100%;
+}
+.banner-image {
+  width: 100%;
+}
+.icon-subnav {
+  padding: 0 20px;
+}
+.view-image-list {
+  display: flex;
+  flex-flow: column;
+}
+.view-image {
+  display: flex;
+  flex-flow: row;
+  min-width: 30vw;
+  padding: 10px;
+}
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+  "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+h1 {
+  margin: 0;
+}
+a {
+  text-decoration: none;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+.zoid-outlet {
+  width: 100% !important;
+}
+.img-statis {
+  width: 40px;
+}
+.description-statis {
+  max-width: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

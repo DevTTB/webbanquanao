@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import '../../../assets/css/flip-clock.css'
 const AnimatedCard = ({ animation, digit }) => {
     return (
         <div className={`flipCard ${animation}`}>

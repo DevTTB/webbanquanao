@@ -18,17 +18,19 @@ const HomePage = () => {
     const [isLoading, setIsLoading] = useState(true)
     const productList = useSelector(state => state.product)
 
+    //Loading
     useEffect(() => {
         setIsLoading(productList.loading)
     }, [productList.loading])
-    useEffect(() => {
-        const fetchUser = async () => {
-            const actionResult = await dispatch(getUser())
-            const currentUser = unwrapResult(actionResult)
-            console.log('current', currentUser)
-        }
-        fetchUser()
-    }, [])
+
+    //User
+    // useEffect(() => {
+    //     const fetchUser = async () => {
+    //         const actionResult = await dispatch(getUser())
+    //         const currentUser = unwrapResult(actionResult)
+    //     }
+    //     fetchUser()
+    // }, [])
     return (
         <>
             <Header />
@@ -43,7 +45,7 @@ const HomePage = () => {
                         <h1> Sale off 50%</h1>
                         <Row gutter={[8, 8]}>
                             {
-                                productList.data.map(item => item.id <= 8 && (
+                                productList.data.map(item => item && (
                                     <ProductCard props={item} />
                                 ))
                             }

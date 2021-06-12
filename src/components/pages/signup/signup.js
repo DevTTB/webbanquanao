@@ -2,14 +2,24 @@ import React, { useRef, useState } from 'react';
 import { Form, Container, Button, Card, Alert } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../../config/contexts/auth-context';
+import {signupUser} from "../../../redux/slice/userLogin-slice";
+import {unwrapResult} from "@reduxjs/toolkit";
+import {useDispatch} from "react-redux";
 const SignUp = () => {
+    const nameRef = useRef()
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
     const { signup, currentUser } = useAuth()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+    const dispatch = useDispatch()
 
+    const signUp = async (data) => {
+        const actionResult = await dispatch(signupUser(data))
+        const dataUser = unwrapResult(actionResult)
+        console.log('signup', dataUser)
+    }
     const handleSubmit = async (e) => {
         e.preventDefault()
 
@@ -26,13 +36,40 @@ const SignUp = () => {
         }
         setLoading(false)
     }
+
+    const handleSubmitSignUp = async (e) => {
+        e.preventDefault()
+
+        if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+            return setError('Password do not match')
+        }
+
+        try {
+            setError('')
+            setLoading(true)
+            //sign up
+            const data = {
+                name: nameRef.current.value,
+                email: emailRef.current.value,
+                password: passwordRef.current.value
+            }
+            signUp(data)
+        } catch {
+            setError('Failed to create account')
+        }
+        setLoading(false)
+    }
     return (
         <>
             <Card>
                 <Card.Body>
                     <h2 className='text-center mb-4'>Đăng ký</h2>
                     {error && <Alert variant='danger'>{error}</Alert>}
-                    <Form onSubmit={handleSubmit}>
+                    <Form onSubmit={handleSubmitSignUp}>
+                        <Form.Group id='name'>
+                            <Form.Label>Tên</Form.Label>
+                            <Form.Control type='text' ref={nameRef} required />
+                        </Form.Group>
                         <Form.Group id='email'>
                             <Form.Label>Email</Form.Label>
                             <Form.Control type='email' ref={emailRef} required />

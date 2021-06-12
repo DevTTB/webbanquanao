@@ -1,5 +1,10 @@
 import firebase from 'firebase'
+import axiosClient from "./axiosClient";
 const userApi = {
+    getAllUsers: () => {
+        const url = '/users'
+        return axiosClient.get(url)
+    },
     getUser: () => {
         return new Promise((resolve, reject) => {
             setTimeout(() => {

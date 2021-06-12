@@ -6,6 +6,7 @@ import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import firebase from 'firebase'
 import { useAuth } from '../../../config/contexts/auth-context';
+import {useSelector} from "react-redux";
 const useStyle = makeStyles(() => ({
     root: {
         width: '100%',
@@ -57,8 +58,8 @@ const HeaderDesktop = ({ props }) => {
     const handleGoto = (page) => {
         history.push(`/${page}`)
     }
-    const currentUser = useAuth() || ''
-    const userName = currentUser.currentUser.displayName
+    const currentUser = useSelector(state => state.userLogin).userInfo
+
     return (
         <div className={classes.root}>
             <div className={classes.header} id='header-top'>
@@ -66,8 +67,8 @@ const HeaderDesktop = ({ props }) => {
             </div>
             <div className={classes.nav}>
                 <div className={classes.subNavR}>
-                    {currentUser.name}
-                    <IconButton onClick={() => userName !== null ? handleGoto('login') : handleGoto('account')} color="inherit">
+                    {currentUser.name ? currentUser.name : 'Đăng nhập/Đăng ký'}
+                    <IconButton onClick={() => currentUser.name ? handleGoto('account') : handleGoto('login')} color="inherit">
                         <AccountCircleIcon />
                     </IconButton>
                     <IconButton onClick={() => handleGoto('cart')} aria-label="show new notifications" color="inherit">

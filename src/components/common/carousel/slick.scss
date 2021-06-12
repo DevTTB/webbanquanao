@@ -1,0 +1,26 @@
+.slick-images {
+  max-width: 500px;
+}
+.sale-carousel {
+  overflow: hidden;
+}
+.slick-items {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  margin: 0 4px !important;
+  padding: 4px !important;
+}
+/* .ant-card-cover {
+  padding: 5px;
+} */
+.slick-images-list {
+}
+.slick-prev {
+  left: 4px !important;
+  z-index: 9;
+}
+.slick-next {
+  right: 4px !important;
+  z-index: 9;
+}

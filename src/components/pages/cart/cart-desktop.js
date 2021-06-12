@@ -10,6 +10,8 @@ import { decreaseItemQuantity, increaseItemQuantity, paymentSuccess, removeItemT
 import SlickCarousel from '../../common/carousel/slick-carousel';
 import Header from '../../common/header';
 import subTotal from '../../common/total-price/subtotal';
+import {Modal} from "antd";
+import AddressShip from "./address-ship";
 
 const CartDesktop = () => {
     let cart = useSelector(state => state.cart)
@@ -56,9 +58,16 @@ const CartDesktop = () => {
         setIsPaymentSuccess('Thanh Toán Thành Công!')
         dispatch(paymentSuccess())
         cart = []
+        Modal.success({
+            content: 'Thanh toán thành công!',
+        });
     }
     const onError = err => {
         setIsPaymentError('Thanh Toán Thất Bại! Hãy Thử Lại')
+        Modal.error({
+            title: 'Thông báo',
+            content: 'Thanh Toán Thất Bại! Hãy Thử Lại'
+        })
     }
     return (
         <div className='w-100'>
@@ -74,7 +83,7 @@ const CartDesktop = () => {
                                 <th className=''>Sản phẩm</th>
                                 <th className=''>Giá</th>
                                 <th className=''>Số lượng</th>
-                                <th className=''>Tổng cộng</th>
+                                <th className='text-center'>Tổng cộng</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -83,7 +92,7 @@ const CartDesktop = () => {
                                     <td className='d-flex'>
                                         <img className='image-product-cart' src={item.url} />
                                         <div className='ml-2 d-flex flex-column'>
-                                            <p>{item.name}</p>
+                                            <p className='white-space'>{item.name}</p>
                                             <Form.Control className='select-size' as="select" size="sm" custom>
                                                 <option >{item.size}</option>
                                                 {/* {item.size.map(size => <option>{size}</option>)} */}
@@ -91,15 +100,21 @@ const CartDesktop = () => {
                                             <Button onClick={() => handleRemoveItemCart(item.id)} variant='text' className='text-left'>Xóa</Button>
                                         </div>
                                     </td>
-                                    <td className=''>{item.price} đ</td>
+                                    <td className='price'>{item.price} đ</td>
                                     <td className='text-center'>
                                         <div className='d-flex'>
-                                            {item.quantity !== 1 && <Grid item><ButtonBase className='btn-cart' onClick={() => handleDecreaseItemCart(item.id)}><RemoveIcon /></ButtonBase></Grid>}
-                                            <Grid item><label className='p-1'>{item.quantity}</label> </Grid>
+                                            <Grid item>
+                                                <ButtonBase
+                                                    disabled={ item.quantity > 1 ? false : true}
+                                                    className='btn-cart'
+                                                    onClick={() => handleDecreaseItemCart(item.id)}>
+                                                <RemoveIcon />
+                                                </ButtonBase></Grid>
+                                            <Grid item><label className='p-1 lable-quantity'>{item.quantity}</label> </Grid>
                                             <Grid item><ButtonBase className='btn-cart' onClick={() => handleIncreaseItemCart(item.id)}><AddIcon /></ButtonBase></Grid>
                                         </div>
                                     </td>
-                                    <td className='text-center'>{item.price * item.quantity} đ</td>
+                                    <td className='text-center price'>{item.price * item.quantity} đ</td>
                                 </tr>)
                             }
                         </tbody>
@@ -126,11 +141,17 @@ const CartDesktop = () => {
                                     onSuccess={onSuccess}
                                     onError={onError} />
                             </Card.Body>
-
                         }
                     </Card>
                 </Container>
             </Container>
+            <AddressShip/>
+
+            <div className="fb-cmt">
+                <div className="fb-comment-embed"
+                     data-href="https://www.facebook.com/zuck/posts/10102735452532991?comment_id=1070233703036185"
+                     data-width="500"></div>
+            </div>
             <SlickCarousel props={productList.data} titleSlick='Sản phẩm liên quan' />
         </div>
     );
