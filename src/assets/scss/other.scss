@@ -49,3 +49,15 @@ a {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+.zoid-outlet {
+  width: 100% !important;
+}
+.img-statis {
+  width: 40px;
+}
+.description-statis {
+  max-width: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

@@ -1,5 +1,6 @@
 import { Button, Container, FormControl, Grid, InputLabel, makeStyles, MenuItem, Paper, Select, Typography } from '@material-ui/core';
 import AddShoppingCartRoundedIcon from '@material-ui/icons/AddShoppingCartRounded';
+import {Modal} from "antd";
 import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
@@ -7,6 +8,7 @@ import { addItemToCart } from '../../../redux/slice/cart-slice';
 import SlickCarousel from '../../common/carousel/slick-carousel';
 import Footer from '../../common/footer/index';
 import Header from '../../common/header/index';
+import {useHistory} from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
     button: {
         backgroundColor: '#00ACC1',
@@ -38,6 +40,7 @@ const DetailPage = () => {
     const [color, setColor] = useState()
 
     const dispatch = useDispatch()
+    const history = useHistory()
     const classes = useStyles()
     const products = useSelector(state => state.product.data)
 
@@ -61,6 +64,13 @@ const DetailPage = () => {
         }
         dispatch(addItemToCart(data))
         setIsAddItem(false)
+        Modal.success({
+            content: 'Đã thêm sản phẩm vào giỏ hàng!',
+        });
+    }
+
+    const handleGoTo = address => {
+        history.push(`/${address}`)
     }
 
 
@@ -143,11 +153,14 @@ const DetailPage = () => {
                                 : <Button
                                     variant="contained"
                                     className={classes.button}
+                                    onClick={() => handleGoTo('cart')}
                                     startIcon={<AddShoppingCartRoundedIcon />}>ĐÃ THÊM VÀO GIỎ HÀNG</Button>
                         }
                     </Grid>
                 </Grid>
             </Container>
+            <div className="fb-comments" data-href="http://localhost:3000/detail-page/60b1b3090bf08506b9815aca" data-width=""
+                 data-numposts="50"></div>
             <SlickCarousel props={products} titleSlick='Sản phẩm liên quan' />
             <Footer />
         </>

@@ -10,6 +10,8 @@ import { decreaseItemQuantity, increaseItemQuantity, paymentSuccess, removeItemT
 import SlickCarousel from '../../common/carousel/slick-carousel';
 import Header from '../../common/header';
 import subTotal from '../../common/total-price/subtotal';
+import {Modal} from "antd";
+import AddressShip from "./address-ship";
 
 const CartDesktop = () => {
     let cart = useSelector(state => state.cart)
@@ -56,9 +58,16 @@ const CartDesktop = () => {
         setIsPaymentSuccess('Thanh Toán Thành Công!')
         dispatch(paymentSuccess())
         cart = []
+        Modal.success({
+            content: 'Thanh toán thành công!',
+        });
     }
     const onError = err => {
         setIsPaymentError('Thanh Toán Thất Bại! Hãy Thử Lại')
+        Modal.error({
+            title: 'Thông báo',
+            content: 'Thanh Toán Thất Bại! Hãy Thử Lại'
+        })
     }
     return (
         <div className='w-100'>
@@ -132,11 +141,17 @@ const CartDesktop = () => {
                                     onSuccess={onSuccess}
                                     onError={onError} />
                             </Card.Body>
-
                         }
                     </Card>
                 </Container>
             </Container>
+            <AddressShip/>
+
+            <div className="fb-cmt">
+                <div className="fb-comment-embed"
+                     data-href="https://www.facebook.com/zuck/posts/10102735452532991?comment_id=1070233703036185"
+                     data-width="500"></div>
+            </div>
             <SlickCarousel props={productList.data} titleSlick='Sản phẩm liên quan' />
         </div>
     );

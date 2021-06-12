@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-    Switch,
-    Route,
-    BrowserRouter
-} from "react-router-dom";
+import { Switch, Route, BrowserRouter } from "react-router-dom";
 import AccountPage from '../components/pages/account';
 import AdminPage from '../components/pages/account/admin/admin';
 import ForgotPassword from '../components/pages/account/reset-password';
@@ -19,7 +15,6 @@ import SignupPage from '../components/pages/signup';
 import { AuthProvider } from '../config/contexts/auth-context';
 import PrivateRoute from './private-route';
 import SearchPage from "../components/pages/search";
-
 const Routers = () => {
     return (
         <BrowserRouter>
@@ -44,5 +39,4 @@ const Routers = () => {
         </BrowserRouter>
     );
 };
-
 export default Routers;

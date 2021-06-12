@@ -29,7 +29,7 @@ const getFireBaseToken = async () => {
 }
 
 const axiosClient = axios.create({
-    baseURL: process.env.REACT_APP_URL_API || 'http://localhost:4000',
+    baseURL: process.env.REACT_APP_URL_API || 'http://localhost:4000/api',
     headers: {
         'content-type': 'application/json',
     },
