@@ -19,12 +19,13 @@ const CartDesktop = () => {
     const [isPaymentSuccess, setIsPaymentSuccess] = useState('')
     const [isPaymentError, setIsPaymentError] = useState('')
     const productList = useSelector(state => state.product)
+    console.log(cart)
     const dispatch = useDispatch()
     const client = {
         sandbox: "ASF5du6Fvrn0Ub-Xl1mxe6eIYiyqlx5YOW9RgI-jtxNz0a5Bj-d5kvE3v12gr8mQPi9HuhFaZiuiKeW6"
     }
     const currency = 'USD'
-    const total = subTotal(cart) / 20000
+    const totalPayment = subTotal(cart) / 20000
 
     const handleGoPayment = id => {
         const item = {}
@@ -93,11 +94,9 @@ const CartDesktop = () => {
                                         <img className='image-product-cart' src={item.url} />
                                         <div className='ml-2 d-flex flex-column'>
                                             <p className='white-space'>{item.name}</p>
-                                            <Form.Control className='select-size' as="select" size="sm" custom>
-                                                <option >{item.size}</option>
-                                                {/* {item.size.map(size => <option>{size}</option>)} */}
-                                            </Form.Control>
-                                            <Button onClick={() => handleRemoveItemCart(item.id)} variant='text' className='text-left'>Xóa</Button>
+                                            <label>Size: {item.size}</label>
+                                            <label>Color: {item.color}</label>
+                                            <Button onClick={() => handleRemoveItemCart(item.productId)} variant='text' className='text-left'>Xóa</Button>
                                         </div>
                                     </td>
                                     <td className='price'>{item.price} đ</td>
@@ -107,11 +106,11 @@ const CartDesktop = () => {
                                                 <ButtonBase
                                                     disabled={ item.quantity > 1 ? false : true}
                                                     className='btn-cart'
-                                                    onClick={() => handleDecreaseItemCart(item.id)}>
+                                                    onClick={() => handleDecreaseItemCart(item.productId)}>
                                                 <RemoveIcon />
                                                 </ButtonBase></Grid>
                                             <Grid item><label className='p-1 lable-quantity'>{item.quantity}</label> </Grid>
-                                            <Grid item><ButtonBase className='btn-cart' onClick={() => handleIncreaseItemCart(item.id)}><AddIcon /></ButtonBase></Grid>
+                                            <Grid item><ButtonBase className='btn-cart' onClick={() => handleIncreaseItemCart(item.productId)}><AddIcon /></ButtonBase></Grid>
                                         </div>
                                     </td>
                                     <td className='text-center price'>{item.price * item.quantity} đ</td>
@@ -137,7 +136,7 @@ const CartDesktop = () => {
                                 <PaypalExpressBtn
                                     client={client}
                                     currency={currency}
-                                    total={total}
+                                    total={totalPayment}
                                     onSuccess={onSuccess}
                                     onError={onError} />
                             </Card.Body>
@@ -146,12 +145,6 @@ const CartDesktop = () => {
                 </Container>
             </Container>
             <AddressShip/>
-
-            <div className="fb-cmt">
-                <div className="fb-comment-embed"
-                     data-href="https://www.facebook.com/zuck/posts/10102735452532991?comment_id=1070233703036185"
-                     data-width="500"></div>
-            </div>
             <SlickCarousel props={productList.data} titleSlick='Sản phẩm liên quan' />
         </div>
     );

@@ -1,6 +1,6 @@
-import { Button, Container, FormControl, Grid, InputLabel, makeStyles, MenuItem, Paper, Select, Typography } from '@material-ui/core';
+import { Button, Container, FormControl, Grid, InputLabel, makeStyles, MenuItem, Paper, Typography } from '@material-ui/core';
 import AddShoppingCartRoundedIcon from '@material-ui/icons/AddShoppingCartRounded';
-import {Modal} from "antd";
+import {Modal, notification, Select} from "antd";
 import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
@@ -9,6 +9,7 @@ import SlickCarousel from '../../common/carousel/slick-carousel';
 import Footer from '../../common/footer/index';
 import Header from '../../common/header/index';
 import {useHistory} from "react-router-dom";
+import {Option} from "antd/es/mentions";
 const useStyles = makeStyles((theme) => ({
     button: {
         backgroundColor: '#00ACC1',
@@ -64,9 +65,11 @@ const DetailPage = () => {
         }
         dispatch(addItemToCart(data))
         setIsAddItem(false)
-        Modal.success({
-            content: 'Đã thêm sản phẩm vào giỏ hàng!',
-        });
+        notification.success({
+            message: 'Thông báo:',
+            description:
+                'Đã thêm sản phẩm vào giỏ hàng!',
+        })
     }
 
     const handleGoTo = address => {
@@ -112,33 +115,27 @@ const DetailPage = () => {
                     <Grid>
                         <Typography variant='h6'>{currentProduct.name}</Typography>
                         <br />
-                        <br />
                         <FormControl variant="outlined" className={classes.formControl}>
-                            <InputLabel id="demo-simple-select-outlined-label">Size:</InputLabel>
-                            <Select
-                                onChange={(e) => setSize(e.target.value)}
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                label="Age" >
+                            Size:
+                            <Select size={"large"} defaultValue={currentProduct.size[0]} onChange={(e) => setSize(e)}>
                                 {
-                                    currentProduct.size.map(item => <MenuItem value={item}>{item}</MenuItem>)
+                                    currentProduct.size.map(item => <Option value={item}>{item}</Option>)
                                 }
                             </Select>
                         </FormControl>
-                        <br />
+                        <br/>
+                        <br/>
                         <FormControl variant="outlined" className={classes.formControl}>
-                            <InputLabel id="demo-simple-select-outlined-label">Color:</InputLabel>
-                            <Select
-                                onChange={(e) => setColor(e.target.value)}
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                label="Age" >
+                            Color:
+                            <Select size={"large"} defaultValue={currentProduct.color[0]} onChange={(value)=>setColor(value)}>
                                 {
-                                    currentProduct.color.map(item => <MenuItem value={item}>{item}</MenuItem>)
+                                    currentProduct.color.map(item => <Option value={item}>{item}</Option>)
                                 }
                             </Select>
                         </FormControl>
-                        <br />
+                        <br/>
+                        <br/>
+                        <label>Giá tiền:</label>
                         <Typography variant='h5'>{currentProduct.price} đ</Typography>
                         <br />
                     </Grid>
@@ -159,8 +156,6 @@ const DetailPage = () => {
                     </Grid>
                 </Grid>
             </Container>
-            <div className="fb-comments" data-href="http://localhost:3000/detail-page/60b1b3090bf08506b9815aca" data-width=""
-                 data-numposts="50"></div>
             <SlickCarousel props={products} titleSlick='Sản phẩm liên quan' />
             <Footer />
         </>
