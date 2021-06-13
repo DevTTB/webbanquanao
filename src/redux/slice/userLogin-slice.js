@@ -39,6 +39,17 @@ const userLogin = createSlice({
         [loginUser.fulfilled]: (state, action) => {
             state.loading = false
             state.userInfo = action.payload
+        },
+        [signupUser.pending]: (state) => {
+            state.loading = true
+        },
+        [signupUser.rejected]: (state, action) => {
+            state.loading = false
+            state.error = action.error
+        },
+        [signupUser.fulfilled]: (state, action) => {
+            state.loading = false
+            state.userInfo = action.payload
         }
     }
 
@@ -52,49 +63,9 @@ const userSignup = createSlice({
     },
     reducers: {},
     extraReducers: {
-        [signupUser.pending]: (state) => state.loading = true,
-        [signupUser.rejected]: (state, action) => {
-            state.loading = false
-            state.error = action.error
+        [signupUser.pending]: (state) => {
+            state.loading = true
         },
-        [signupUser.fulfilled]: (state, action) => {
-            state.loading = false
-            state.userInfo = action.payload
-        }
-    }
-})
-
-const userUpdate = createSlice({
-    name: 'userUpdate',
-    initialState: {
-        userInfo: [],
-        loading: false,
-        error: ''
-    },
-    reducers: {},
-    extraReducers: {
-        [signupUser.pending]: (state) => state.loading = true,
-        [signupUser.rejected]: (state, action) => {
-            state.loading = false
-            state.error = action.error
-        },
-        [signupUser.fulfilled]: (state, action) => {
-            state.loading = false
-            state.userInfo = action.payload
-        }
-    }
-})
-
-const userDelete = createSlice({
-    name: 'userDelete',
-    initialState: {
-        userInfo: [],
-        loading: false,
-        error: ''
-    },
-    reducers: {},
-    extraReducers: {
-        [signupUser.pending]: (state) => state.loading = true,
         [signupUser.rejected]: (state, action) => {
             state.loading = false
             state.error = action.error
@@ -108,12 +79,8 @@ const userDelete = createSlice({
 
 const { reducer: userLoginReducer , actionsLogin } = userLogin
 const { reducer: userSignupReducer , actionsSignup } = userSignup
-const { reducer: userUpdateReducer , actionsUpdate } = userUpdate
-const { reducer: userDeleteReducer , actionsDelete } = userDelete
 
 export {
     userLoginReducer,
     userSignupReducer,
-    userUpdateReducer,
-    userDeleteReducer
 }

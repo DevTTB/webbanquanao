@@ -1,11 +1,11 @@
 import axiosClient from "./axiosClient"
 
 const productApi = {
-    getAll: (params) => {
+    getAll: () => {
         const url = '/products'
         return axiosClient.get(url)
     },
-    get: (id) => {
+    getById: (id) => {
         const url = `/products/${id}`
         return axiosClient.get(url)
     },

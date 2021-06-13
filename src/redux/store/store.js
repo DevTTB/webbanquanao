@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import {productReducer} from '../slice/product-slice'
+import productReducer from '../slice/product-slice'
 import cartReducer from '../slice/cart-slice'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
